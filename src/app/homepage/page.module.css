@@ -1,0 +1,72 @@
+/* components/AutoSlider.module.css */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 10px;
+    overflow: hidden;
+  }
+  
+  .heading {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    color: white; /* light purple */
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .sliderWrapper {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .sliderTrack {
+    display: flex;
+    will-change: transform;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .slideItem {
+    flex: 0 0 25%;
+    min-width: 25%;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #e9d5ff; /* very light purple */
+    background-color: transparent;
+    border: 1px solid #a855f7; /* purple border */
+    border-radius: 8px;
+    margin: 5px;
+    transition: transform 0.3s ease;
+  }
+  
+  .slideItem:hover {
+    transform: scale(1.03);
+  }
+  
+  @media (max-width: 1024px) {
+    .slideItem {
+      flex: 0 0 33.33%;
+      min-width: 33.33%;
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .slideItem {
+      flex: 0 0 50%;
+      min-width: 50%;
+      font-size: 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .slideItem {
+      flex: 0 0 100%;
+      min-width: 100%;
+      font-size: 14px;
+    }
+  }
+  
