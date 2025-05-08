@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Header from "@/components/header";
 import Image from "next/image";
+import Footer from "@/components/footer";
 
 export default function Homepage() {
   const [stars, setStars] = useState([]);
@@ -21,7 +22,7 @@ export default function Homepage() {
 
   return (
     <div className="text-white font-sans min-h-screen flex flex-col items-center relative bg-black overflow-hidden">
-      <Header />
+      <Header/>
 
       {/* Background Stars */}
       <div className="absolute inset-0 z-0">
@@ -78,9 +79,7 @@ export default function Homepage() {
       </div>
       
       <div className=""></div>
-      <footer className="relative z-10 mt-12 w-full text-xs text-center p-4 text-gray-400 border-t border-gray-700">
-        ДИЖИТАЛ ӨРӨНД ДЭЭРТЭР ТАНЬ АСУУДЛЫГ ХУРДАН АЮУЛГҮЙ ШУУРХАЙ ШИЙДНЭ
-      </footer>
+      <Footer/>
     </div>
   );
 }

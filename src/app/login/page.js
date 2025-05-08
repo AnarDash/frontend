@@ -31,7 +31,7 @@ export default function Login() {
 
       <div className="w-full flex flex-col gap-y-8 px-16 py-12">
         <h2 className="text-3xl font-bold">Нэвтрэх</h2>
-        <div className="flex w-full gap-x-2">
+        <div className="flex w-full gap-x-10">
           <div className="w-[35vw] flex flex-col">
             <div className="flex justify-between mb-4">
 

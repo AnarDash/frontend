@@ -13,7 +13,7 @@ export default function Register() {
 
       <div className="w-full flex flex-col gap-8 px-16 py-12">
         <h2 className="text-3xl font-bold">Бүртгүүлэх</h2>
-        <div className="flex w-full gap-x-2">
+        <div className="flex w-full gap-x-10">
           <div className="w-[35vw] flex flex-col">
             <form className="flex flex-col gap-4 h-full">
               <div>
