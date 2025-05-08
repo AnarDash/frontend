@@ -2,14 +2,18 @@
 import { useRouter } from "next/navigation";
 import Header from "@/components/header";
 import Image from "next/image";
+import Footer from "@/components/footer";
 
 export default function Register() {
+  const router = useRouter();
+
   return (
     <div className="bg-black text-white font-sans min-h-screen flex flex-col">
       <Header />
+
       <div className="w-full flex flex-col gap-8 px-16 py-12">
         <h2 className="text-3xl font-bold">Бүртгүүлэх</h2>
-        <div className="flex w-full gap-x-1">
+        <div className="flex w-full gap-x-2">
           <div className="w-[35vw] flex flex-col">
             <form className="flex flex-col gap-4 h-full">
               <div>
@@ -68,11 +72,11 @@ export default function Register() {
                 />
               </div>
 
-              <button className="w-full bg-purple-800 text-white font-semibold py-2 rounded-full mt-4">
+              <button className="w-full bg-purple-600 text-white font-semibold py-2 rounded-full mt-4 hover:bg-purple-700 cursor-pointer">
                 Үргэлжлүүлэх
               </button>
               <p className="w-full flex justify-center text-sm text-gray-400">
-                Хэрвээ танд хаяг аль хэдийн байгаа бол <span className="underline ml-1 cursor-pointer" onClick={() => router.back()}>нэвтэрнэ үү</span>
+                Хэрвээ танд хаяг аль хэдийн байгаа бол <span className="underline ml-1 cursor-pointer" onClick={() => router.push("./login")}>нэвтэрнэ үү</span>
               </p>
             </form>
           </div>
@@ -88,9 +92,7 @@ export default function Register() {
         </div>
       </div>
 
-      <footer className="absolute bottom-0 left-0 w-full text-xs text-center p-4 text-gray-400 border-t border-gray-700">
-        ДИЖИТАЛ ӨРӨНД ДЭЭРТЭР ТАНЬ АСУУДЛЫГ ХУРДАН АЮУЛГҮЙ ШУУРХАЙ ШИЙДНЭ
-      </footer>
+      <Footer/>
     </div>
   );
 }
