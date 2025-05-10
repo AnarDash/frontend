@@ -11,12 +11,12 @@ const unpaid = new Array(4).fill({
         <h2 className="text-lg font-semibold mb-6 text-gray-800">Өнөөдөр</h2>
         {unpaid.map((item, idx) => (
           <div key={idx} className="flex justify-between items-center mb-4 p-4 bg-red-50 rounded-lg">
-            <div>
+            <div className="px-6 mr-8">
               <div className="font-semibold">{item.name}</div>
-              <div className="text-sm text-gray-600">{item.address}</div>
               <div className="text-sm text-gray-600">{item.amount}</div>
+              <div className="text-sm text-gray-600">{item.address}</div>
             </div>
-            <span className="bg-red-200 text-red-600 px-3 py-1 rounded-lg">
+            <span className="bg-red-200 text-red-600 px-4 py-1 rounded-full">
               Төлөөгүй
             </span>
           </div>

@@ -12,7 +12,7 @@ export default function Profile() {
       </div>
 
       {/* Main Content */}
-      <main className="ml-64 flex-1 bg-black font-sans overflow-y-auto p-8">
+      <main className="ml-64 flex-1 bg-white font-sans overflow-y-auto p-8">
         <div className="max-w-7xl mx-auto text-black">
           <div className="mb-8 flex justify-between items-center">
             <h1 className="text-3xl font-bold">Бүх зээлийн жагсаалт</h1>
@@ -21,16 +21,16 @@ export default function Profile() {
           
           <div className="flex flex-col lg:flex-row gap-8">
             <div className="flex-1 space-y-8">
-              <div className="bg-purple-600 p-6 rounded-lg">
+           
                 <LoanTable />
-              </div>
-              <div className="bg-black p-6 rounded-lg">
+              
+            
                 <Chart />
-              </div>
+              
             </div>
-            <div className="lg:w-96 bg-black p-6 rounded-lg">
+            
               <TodayList />
-            </div>
+           
           </div>
         </div>
       </main>

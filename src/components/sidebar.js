@@ -1,42 +1,34 @@
-// components/Sidebar.tsx
 "use client";
 
 const Sidebar = () => {
   return (
-    <div className="w-64 h-screen bg-black border-r border-purple-600 flex flex-col">
-      {/* Header Section */}
-      <div className="p-4 border-b border-purple-600">
-        <div className="text-lg font-bold text-purple-400">Delguur</div>
-        <div className="text-sm text-purple-300">XV/1,2p xopoo</div>
-        <div className="mt-1 text-xs font-mono text-purple-200">3786797</div>
-      </div>
-
+    <div className="w-64 h-screen bg-white  flex flex-col">
+      <div className="h-screen w-full shadow-2xl rounded-tr-[10vw] flex flex-col items-center justify-between">
+        <img onClick={() => router.push("/homepage")} src="/image/LogoPurple.png" className="mr-28 mt-8"></img>
+        <img
+            
+            src="/image/image.png"
+            alt="Logo"
+            className="h-[10%] w-auto cursor-pointer"
+          />
+        <div className="h-[10%] w-full flex flex-col items-center">
+        <div className="text-lg font-bold text-black">Delguur</div>
+        <div className="text-sm text-black">XV/1,2p xopoo</div>
+        <div className="mt-1 text-xs font-mono text-black">3786797</div>
+        </div>
       {/* Content Section */}
-      <div className="flex-1 overflow-y-auto p-4">
-        {/* Main Section */}
-        <div className="mb-6">
-          <h2 className="text-sm font-medium text-purple-400 uppercase mb-2">
-          Нүүр
-          </h2>
-          <div className="space-y-1">
-            <div className="text-purple-200 hover:bg-purple-900 px-2 py-1 rounded cursor-pointer transition-colors">
-            Хувийн мэдээлэл
-            </div>
+        <div className="w-full h-[55%] bg-gradient-to-t from-purple-800 to-purple-500 shadow-2xl rounded-tr-[10vw] flex flex-col ">
+          <div className="h-[10%] w-full"></div>
+          <div className="h-[40%] w-full">
+            <button className=" hover:bg-gray-200 w-[70%] h-[20%] rounded-r-full text-white hover:text-black ">Хувийн мэдээлэл</button>
+            <button className=" hover:bg-gray-200 w-[70%] h-[20%] rounded-r-full text-white hover:text-black ">Түүх</button>
+            <button className=" hover:bg-gray-200 w-[70%] h-[20%] rounded-r-full text-white hover:text-black ">Холбоо барих</button>
+            <button className=" hover:bg-gray-200 w-[70%] h-[20%] rounded-r-full text-white hover:text-black ">Тусламж</button>
+          </div>
+          <div className="h-[50%] w-full">
+          <button className=" hover:bg-gray-200 w-[70%] h-[20%] rounded-r-full text-white hover:text-black ">Хувийн мэдээлэл</button>
           </div>
         </div>
-
-        {/* Divider */}
-        <hr className="my-4 border-t border-purple-600" />
-
-        {/* Settings Section */}
-        <div className="mb-2">
-          <h2 className="text-sm font-medium text-purple-400 uppercase mb-2">
-            Тохиргоо
-          </h2>
-          <div className="space-y-1">
-          
-            </div>
-          </div>
         </div>
       </div>
   );

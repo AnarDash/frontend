@@ -24,16 +24,16 @@ const loans = new Array(6).fill({
           <tbody>
             {loans.map((loan, idx) => (
               <tr key={idx} className="border-t">
-                <td>{loan.name}</td>
-                <td>{loan.amount}</td>
-                <td>{loan.phone}</td>
-                <td>{loan.email}</td>
-                <td>{loan.district}</td>
-                <td>
-                  <span className="bg-green-100 text-green-600 px-3 py-1 rounded-lg">
-                    {loan.status}
-                  </span>
-                </td>
+                  <td>{loan.name}</td>
+                  <td>{loan.amount}</td>
+                  <td>{loan.phone}</td>
+                  <td>{loan.email}</td>
+                  <td>{loan.district}</td>
+                  <td>
+                    <span className="bg-green-100 text-green-600 px-3 py-1 rounded-lg">
+                      {loan.status}
+                    </span>
+                  </td>
               </tr>
             ))}
           </tbody>
