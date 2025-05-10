@@ -1,5 +1,5 @@
 import Sidebar from "@/components/sidebar";
-import LoanTable from "@/components/LoanTable";
+import LoanTable from "@/components/Loantable";
 import Chart from "@/components/Chart";
 import TodayList from "@/components/TodayList";
 

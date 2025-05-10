@@ -72,7 +72,7 @@ export default function Register() {
                 />
               </div>
 
-              <button className="w-full bg-purple-600 text-white font-semibold py-2 rounded-full mt-4 hover:bg-purple-700 cursor-pointer">
+              <button onClick={() => router.push("./authentication")} className="w-full bg-purple-600 text-white font-semibold py-2 rounded-full mt-4 hover:bg-purple-700 cursor-pointer">
                 Үргэлжлүүлэх
               </button>
               <p className="w-full flex justify-center text-sm text-gray-400">
