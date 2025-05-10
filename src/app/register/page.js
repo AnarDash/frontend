@@ -1,82 +1,77 @@
-"use client"; 
+// frontend/pages/register.js
+"use client";
+
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Header from "@/components/header";
-import Image from "next/image";
-import Footer from "@/components/footer";
+import { register as registerService } from "@/services/api";
 
 export default function Register() {
   const router = useRouter();
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'loader', address: '' });
+  const [registrationError, setRegistrationError] = useState('');
+  const [loading, setLoading] = useState(false);
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setRegistrationError('');
+    try {
+      const data = await registerService(formData);
+      console.log('Registration successful:', data);
+      router.push(`/user/${data.userId}`); // Redirect with userId
+    } catch (error) {
+      console.error('Registration error:', error);
+      setRegistrationError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // KEEP YOUR EXISTING JSX HERE (the return statement with your form and UI elements)
   return (
     <div className="bg-black text-white font-sans min-h-screen flex flex-col">
       <Header />
-
-      <div className="w-full flex flex-col gap-8 px-16 py-12">
+      <div className="w-full flex flex-col gap-y-8 px-16 py-12">
         <h2 className="text-3xl font-bold">Бүртгүүлэх</h2>
         <div className="flex w-full gap-x-10">
           <div className="w-[35vw] flex flex-col">
-            <form className="flex flex-col gap-4 h-full">
+            <form className="flex flex-col gap-6 h-full" onSubmit={handleRegister}>
+              {registrationError && <p className="text-red-500">{registrationError}</p>}
               <div>
-                <label htmlFor="email" className="block mb-1 text-1xl font-bold">
-                  Таны И-майл хаяг
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="name@example.com"
-                  className="w-full p-2 rounded-lg bg-white border border-gray-600 text-black focus:outline-none"
-                />
+                <label className="block mb-1">Нэр</label>
+                <input type="text" name="name" value={formData.name} onChange={handleChange} className="w-full px-2 py-3 rounded-xl bg-white border border-none focus:outline-purple-800 text-black" required />
               </div>
               <div>
-                <label htmlFor="phone" className="block mb-1 text-1xl font-bold">
-                  Гар утасны дугаар
-                </label>
-                <input
-                  id="phone"
-                  type="tel"
-                  placeholder="99998888"
-                  className="w-full p-2 rounded-lg bg-white border border-gray-600 text-black"
-                />
+                <label className="block mb-1">Имэйл</label>
+                <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full px-2 py-3 rounded-xl bg-white border border-none focus:outline-purple-800 text-black" required />
               </div>
               <div>
-                <label htmlFor="registerId" className="block mb-1 text-1xl font-bold">
-                  Регистрийн дугаар
-                </label>
-                <input
-                  id="registerId"
-                  type="text"
-                  placeholder="AB12345678"
-                  className="w-full p-2 rounded-lg bg-white border border-gray-600 text-black"
-                />
+                <label className="block mb-1">Нууц үг</label>
+                <input type="password" name="password" value={formData.password} onChange={handleChange} className="w-full px-2 py-3 rounded-xl bg-white border border-none focus:outline-purple-800 text-black" required />
               </div>
               <div>
-                <label htmlFor="storeName" className="block mb-1 text-1xl font-bold">
-                  Дэлгүүрийн нэр
-                </label>
-                <input
-                  id="storeName"
-                  type="text"
-                  placeholder="Миний дэлгүүр"
-                  className="w-full p-2 rounded-lg bg-white border border-gray-600 text-black"
-                />
+                <label className="block mb-1">Үүрэг</label>
+                <select name="role" value={formData.role} onChange={handleChange} className="w-full px-2 py-3 rounded-xl bg-white border border-none focus:outline-purple-800 text-black" required>
+                  <option value="loader">Зээлдэгч</option>
+                  <option value="renter">Зээлэгч</option>
+                </select>
               </div>
               <div>
-                <label htmlFor="storeAddress" className="block mb-1 text-1xl font-bold">
-                  Дэлгүүрийн хаяг
-                </label>
-                <input
-                  id="storeAddress"
-                  type="text"
-                  placeholder="Улаанбаатар, Баянзүрх дүүрэг..."
-                  className="w-full p-2 rounded-lg bg-white border border-gray-600 text-black"
-                />
+                <label className="block mb-1">Хаяг</label>
+                <input type="text" name="address" value={formData.address} onChange={handleChange} className="w-full px-2 py-3 rounded-xl bg-white border border-none focus:outline-purple-800 text-black" required />
               </div>
-
-              <button onClick={() => router.push("./authentication")} className="w-full bg-purple-600 text-white font-semibold py-2 rounded-full mt-4 hover:bg-purple-700 cursor-pointer">
-                Үргэлжлүүлэх
+              <button type="submit" className={`w-full bg-white text-black font-semibold py-2 rounded-full hover:bg-purple-700 cursor-pointer ${loading ? 'opacity-50 cursor-wait' : ''}`} disabled={loading}>
+                {loading ? 'Бүртгүүлж байна...' : 'Бүртгүүлэх'}
               </button>
-              <p className="w-full flex justify-center text-sm text-gray-400">
-                Хэрвээ танд хаяг аль хэдийн байгаа бол <span className="underline ml-1 cursor-pointer" onClick={() => router.push("./login")}>нэвтэрнэ үү</span>
+              <p className="text-sm text-gray-400">
+                Аль хэдийн бүртгүүлсэн бол{" "}
+                <span className="underline ml-1 cursor-pointer" onClick={() => router.push("/login")}>
+                  нэвтэрнэ үү
+                </span>
               </p>
             </form>
           </div>
@@ -91,8 +86,7 @@ export default function Register() {
           </div>
         </div>
       </div>
-
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -1,112 +1,64 @@
+// frontend/pages/login.js
 "use client";
 
 import { useState } from "react";
-import Header from "@/components/header";
-import Image from "next/image";
-import Footer from "@/components/footer";
 import { useRouter } from "next/navigation";
+import { login as loginService } from "@/services/api";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import Image from "next/image";
 
 export default function Login() {
   const router = useRouter();
-
-  const [renterClass, setRenterClass] = useState(
-    "bg-purple-600 text-white w-[15vw] py-3 rounded-2xl hover:bg-purple-700"
-  );
-  const [loaderClass, setLoaderClass] = useState(
-    "border border-2 border-purple-500 text-white w-[15vw] rounded-2xl hover:bg-purple-700"
-  );
-  const [className, setClassName] = useState("Дэлгүүрийн нэр");
-
-  const [shopname, setShopname] = useState("");
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleRenterClick = () => {
-    setRenterClass("bg-purple-600 text-white w-[15vw] py-3 rounded-2xl hover:bg-purple-700");
-    setLoaderClass("border border-2 border-purple-500 text-white w-[15vw] rounded-2xl hover:bg-purple-700");
-    setClassName("Дэлгүүрийн нэр");
-  };
-
-  const handleLoaderClick = () => {
-    setRenterClass("border border-2 border-purple-500 text-white w-[15vw] rounded-2xl hover:bg-purple-700");
-    setLoaderClass("bg-purple-600 text-white w-[15vw] py-3 rounded-2xl hover:bg-purple-700");
-    setClassName("Таны нэр");
-  };
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Password:", password);
-    
+    setError("");
+    setLoading(true);
+    try {
+      const data = await loginService(name, password);
+      console.log('Login successful:', data);
+      router.push(`/user/${data.userId}`);
+    } catch (err) {
+      setError(err.message);
+      console.error("Login error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="bg-black text-white font-sans min-h-screen flex flex-col">
       <Header />
-
       <div className="w-full flex flex-col gap-y-8 px-16 py-12">
         <h2 className="text-3xl font-bold">Нэвтрэх</h2>
         <div className="flex w-full gap-x-10">
           <div className="w-[35vw] flex flex-col">
-            <div className="flex justify-between mb-4">
-              <button className={renterClass} onClick={handleRenterClick}>
-                Зээлэгч
-              </button>
-              <button className={loaderClass} onClick={handleLoaderClick}>
-                Зээлдэгч
-              </button>
-            </div>
-
             <form className="flex flex-col gap-6 h-full" onSubmit={handleLogin}>
+              {error && <p className="text-red-500">{error}</p>}
               <div>
-                <label className="block mb-1">{className}</label>
-                <input
-                  type="text"
-                  value={className == "Зээлэгч" ? shopname : username}
-                  onChange={(e) => {className == "Зээлэгч" ?  setShopname(e.target.value) : setUsername(e.target.value)}}
-                  className="w-full px-2 py-3 rounded-xl bg-white border border-none focus:outline-purple-800 text-black"
-                />
+                <label className="block mb-1">Нэр</label>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-2 py-3 rounded-xl bg-white border border-none focus:outline-purple-800 text-black" required />
               </div>
-
               <div>
                 <label className="block mb-1">Нууц үг</label>
-                <div className="relative">
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-2 py-3 rounded-xl bg-white border border-none focus:outline-purple-800 text-black"
-                  />
-                  <span className="absolute right-3 top-2.5 cursor-pointer"></span>
-                </div>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-2 py-3 rounded-xl bg-white border border-none focus:outline-purple-800 text-black" required />
               </div>
-
-              <div>
-                <div className="mb-2">
-                  <input type="checkbox" id="remember" className="bg-purple-600" />
-                  <label htmlFor="remember" className="ml-1">
-                    Нууц үг санах
-                  </label>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-white text-black font-semibold py-2 rounded-full hover:bg-purple-700 cursor-pointer"
-                >
-                  Нэвтрэх
-                </button>
-              </div>
-
+              <button type="submit" className={`w-full bg-white text-black font-semibold py-2 rounded-full hover:bg-purple-700 cursor-pointer ${loading ? 'opacity-50 cursor-wait' : ''}`} disabled={loading}>
+                {loading ? 'Нэвтэрч байна...' : 'Нэвтрэх'}
+              </button>
               <p className="text-sm text-gray-400">
                 Хэрвээ хаяг байхгүй бол{" "}
-                <span
-                  className="underline ml-1 cursor-pointer"
-                  onClick={() => router.push("/register")}
-                >
+                <span className="underline ml-1 cursor-pointer" onClick={() => router.push("/register")}>
                   бүртгүүлнэ үү
                 </span>
               </p>
             </form>
           </div>
-
           <div className="w-[65vw]">
             <Image
               src="/image/mongolia.png"
@@ -118,7 +70,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-
       <Footer />
     </div>
   );
